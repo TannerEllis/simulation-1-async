@@ -1,0 +1,75 @@
+.edit-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+}
+
+input {
+    height: 50px;
+    width: 500px;
+    border-radius: 10px;
+    border: 1.5px solid pink;
+    font-family: 'Open Sans', sans-serif;
+    color: black;
+    font-weight: 700;
+    font-size: 30px;
+}
+
+input:focus{
+    border: 3px solid rgb(179, 24, 24);
+    outline: none;
+}
+
+.edit-btn {
+    width: 200px;
+    height: 60px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Open Sans', sans-serif;
+    color: black;
+    font-weight: 700;
+    font-size: 30px;
+    margin-top: 10px;
+    margin-right: 50px;
+
+}
+
+.delete-btn {
+    width: 200px;
+    height: 60px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Open Sans', sans-serif;
+    color: black;
+    font-weight: 700;
+    font-size: 30px;
+    margin-top: 10px;
+    margin-left: 50px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.add-inventory {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    height: 70px;
+    width: 500px;
+    background: #40F99B;
+    border: 2px solid #40F99B;
+    border-radius: 50px;
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 35px;
+    margin: 0 auto;
+    margin-top: 18px;
+}
+
+.add-inventory:hover {
+    cursor: pointer;
+}
