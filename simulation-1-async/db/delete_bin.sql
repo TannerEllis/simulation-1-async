@@ -1,2 +1,2 @@
 DELETE FROM Shelfie
-WHERE name = $1, price = $2;
+WHERE id = $1

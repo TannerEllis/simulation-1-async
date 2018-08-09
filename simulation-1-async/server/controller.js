@@ -19,11 +19,12 @@ module.exports = {
             .catch((err) => res.status(500).send(err))
     },
 
-    createBin: (req, res) => {
-       
-        const {name, price, image} = req.body
-        req.app.post('db').create_bin([name, price, image])
+    createBin: (req, res) => {      
+        const {name, price} = req.body
+        const { id } = req.params
+        req.app.get('db').create_bin([id, name, price])
         .then(() => res.sendStatus(200))
+        .catch((err) => res.status(500).send(err))
     }, 
 
     updateBin: (req, res) => {
@@ -32,12 +33,14 @@ module.exports = {
         console.log(name, price)
         req.app.get('db').update_bin([name, price, id])
         .then(() => res.sendStatus(200)) 
+        .catch((err) => res.status(500).send(err))
     }, 
 
     deleteBin: (req, res) => {
-        const {name, price} = req.body
-        console.log(name, price)
-        req.app.get('db').delete_bin([name, price])
-        .then(() => res.sendStatus(200))
+         const id = req.params.id
+         console.log(req.params)
+        req.app.get('db').delete_bin([id])
+        .then(() =>  res.sendStatus(200))
+        .catch((err) => res.status(500).send(err))
     }
 }

@@ -4,6 +4,7 @@ import axios from 'axios';
 import './Bin.css';
 import logo from './logo.png';
 
+
 class Bin extends Component {
     constructor() {
         super()
@@ -16,7 +17,6 @@ class Bin extends Component {
             id: 0
         }
 
-      
         this.handleDelete = this.handleDelete.bind(this);
         this.handleGetBin = this.handleGetBin.bind(this);
         this.handleUpdateBin = this.handleUpdateBin.bind(this);
@@ -49,6 +49,26 @@ class Bin extends Component {
             }).catch((err) => { console.log(err) })
     }
 
+    handleUpdateBin() {
+        axios.put(`/api/bin/${this.state.id}`, {name: this.state.name, price: this.state.price}).then( () => {
+            this.setState({
+                edit: true,
+                name: this.state.name,
+                price: this.state.price
+            }) 
+        }).catch((err) => {console.log(err)})
+    }
+
+    handleDelete() {
+        console.log(this.state.id)
+        axios.delete(`/api/bin/${this.state.id}`).then(() => {
+            this.setState({
+                name: '', 
+                price: ''
+            })
+        }).catch((err) => {console.log(err)})
+    }
+
     handleEditName(e){
         console.log(e)
         this.setState({
@@ -63,24 +83,6 @@ class Bin extends Component {
          })
     }
 
-    handleUpdateBin() {
-        axios.put(`/api/bin/${this.state.id}`, {name: this.state.name, price: this.state.price}).then( () => {
-            this.setState({
-                edit: true,
-                name: this.state.name,
-                price: this.state.price
-            }) 
-        }).catch((err) => {console.log(err)})
-    }
-
-    handleDelete() {
-        axios.delete(`/api/bin/${this.props.match.params.id}${this.props.match.params.number}`).then(() => {
-            this.setState({
-                name: null, 
-                price: null
-            })
-        }).catch((err) => {console.log(err)})
-    }
 
     render() {
         console.log(this.props)
@@ -102,16 +104,14 @@ class Bin extends Component {
                     </div>
                 <div className="edit-container">
                     <h2>Name</h2>
-                    <input type="text" onChange={this.state.edit ? null: this.handleEditName} value={this.state.name}/>
+                    <input type="text" onChange={this.state.edit ? null : this.handleEditName} value={this.state.name}/>
                     <h2> Price</h2>
-                    <input placeholder="$0.00" type="text"  onChange={this.state.edit ? null: this.handleEditPrice} value={this.state.price}/>
+                    <input placeholder="$0.00" type="text"  onChange={this.state.edit ? null : this.handleEditPrice}  value={this.state.price}/>
                     <div className="buttons">
                         
                         {this.state.edit 
-                            ? 
-                            <button className="edit-btn"  onClick={this.toggleEdit}>EDIT</button>
-                             : 
-                             <button onClick={this.handleUpdateBin} className="save-btn">SAVE</button> }
+                            ? <button className="edit-btn"  onClick={this.toggleEdit}>EDIT</button>
+                            : <button onClick={this.handleUpdateBin} className="save-btn">SAVE</button> }
                        
                         <button className="delete-btn" onClick={this.handleDelete} >DELETE</button>
                     </div>

@@ -11,9 +11,13 @@ class Shelf extends Component {
         this.state = {
             bins: []
         }
-        
+
     }
     componentDidMount() {
+        this.handleGetBins()
+    }
+
+    handleGetBins() {
         axios.get(`/api/shelf/${this.props.match.params.id}`)
             .then((res) => {
                 console.log(res)
@@ -40,19 +44,12 @@ class Shelf extends Component {
                     </div>
                 </div>
                 <div className="button-container">
-                    <Link to={`/shelf/${this.props.match.params.id}/bin/1`}> <button className="bin-button"> Bin 1</button></Link> 
-                    
+                    <Link to={`/shelf/${this.props.match.params.id}/bin/1`}> <button className="bin-button"> Bin 1</button></Link>
                     <Link to={`/shelf/${this.props.match.params.id}/bin/2`}> <button className="bin-button"> Bin 2</button></Link>
-
                     <Link to={`/shelf/${this.props.match.params.id}/bin/3`}> <button className="bin-button"> Bin 3</button></Link>
-
-                     <Link to={`/shelf/${this.props.match.params.id}/bin/4`}> <button className="bin-button"> Bin 4</button></Link>
-                  
-                     <Link to={`/shelf/${this.props.match.params.id}/bin/5`}><button className="bin-button"> Bin 5</button></Link> 
-                    
-                     <Link to={`/shelf/${this.props.match.params.id}/add`}><button className="bin-add">+Add Inventory </button></Link>
-                 
-                    
+                    <Link to={`/shelf/${this.props.match.params.id}/bin/4`}> <button className="bin-button"> Bin 4</button></Link>
+                    <Link to={`/shelf/${this.props.match.params.id}/bin/5`}> <button className="bin-button"> Bin 5</button></Link>
+                    <Link to={`/shelf/${this.props.match.params.id}/add`}><button className="bin-add">+Add Inventory </button></Link>
                 </div>
             </div>
         )

@@ -13,17 +13,15 @@ class AddToBin extends Component {
             price: '',
             image: ''
         }
+        this.handleAddBin = this.handleAddBin.bind(this);
     }
 
     handleAddBin(){
-        axios.post(`/api/shelf${this.props.match.params.id}/bin/${this.props.match.params.number}`)
+        let {name, price} = this.state
+        axios.post(`/api/shelf${this.props.match.params.id}/bin/${this.props.match.params.number}`, {name, price})
         .then((res) => {
-            this.setState({
-                name: res.data.name,
-                price: res.data.price,
-                image: res.data.image
-            })
-        }).catch((err) => {console.log(err)})   
+            console.log(res.data)
+        })
     }
 
     render() {
@@ -38,7 +36,7 @@ class AddToBin extends Component {
                         <h2>Shelf {this.props.match.params.id}</h2>
                     </div>
                     <div className="bin-number">
-                        <h2 onClick={() => this.props.history.goBack()}>Bin {this.props.match.params.number}</h2>
+                        <h2 onClick={() => this.props.history.goBack()}>Add to Bin {this.props.match.params.number}</h2>
                     </div>
                 </div>
                 <div className="edit-container">
@@ -48,7 +46,7 @@ class AddToBin extends Component {
                     <input placeholder="$0.00" type="text" />
                     <div className="buttons">
                     </div>
-                    <button className="add-inventory"> + Add Inventory </button>
+                    <button onClick={this.handleAddBin} className="add-inventory"> + Add Inventory </button>
                 </div>
             </div>
         )

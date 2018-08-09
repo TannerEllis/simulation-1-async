@@ -25,9 +25,9 @@ app.get('/api/bin/:id', controller.getBin)
 
 app.put('/api/bin/:id', controller.updateBin)
 
-// app.delete('/api/bin/:id', controller.deleteBin)
+app.delete('/api/bin/:id', controller.deleteBin)
 
-// app.post('api/bin/:id', controller.createBin)
+app.post('/api/bin/:id', controller.createBin)
 
 
 app.listen(port, () => console.log('Listening on port', port))
