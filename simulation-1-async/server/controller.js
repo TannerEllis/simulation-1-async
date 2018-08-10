@@ -13,6 +13,7 @@ module.exports = {
     },
 
     getBin: (req, res) => {
+        console.log(req.params.id)
         const [shelf, bin] = req.params.id
         req.app.get('db').get_bin([shelf, bin])
             .then(([bin]) => res.send(bin))
@@ -21,10 +22,17 @@ module.exports = {
 
     createBin: (req, res) => {      
         const {name, price} = req.body
-        const { id } = req.params
-        req.app.get('db').create_bin([id, name, price])
+        const id = req.params.id.split('')
+        let shelfLetter = id[0]
+        let binNumber = id[1]
+        console.log(name, price, shelfLetter, binNumber)
+        req.app.get('db').create_bin([ name, price, shelfLetter, Number(binNumber)])
         .then(() => res.sendStatus(200))
-        .catch((err) => res.status(500).send(err))
+
+        .catch((err) => { 
+        console.log(err)
+        res.status(500).send(err)})
+
     }, 
 
     updateBin: (req, res) => {

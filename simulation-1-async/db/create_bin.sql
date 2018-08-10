@@ -1,2 +1,2 @@
-insert into Shelfie (id, name, price)
-values ($1, $2, $3)
+insert into Shelfie (name, price, shelf_letter, bin_number)
+values ($1, $2, $3, $4);

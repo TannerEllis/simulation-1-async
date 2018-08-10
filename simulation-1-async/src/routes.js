@@ -10,6 +10,6 @@ export default (
         <Route exact path="/" component={Homepage} /> 
         <Route exact path="/shelf/:id/bin/:number" component={Bin} />
         <Route exact path="/shelf/:id" component={Shelf} />
-        <Route exact path="/shelf/:id/add" component={AddToBin} />
+        <Route exact path="/shelf/:id/:number" component={AddToBin} />
     </Switch>
 ) 

@@ -30,6 +30,7 @@ class Shelf extends Component {
     }
 
 
+
     // Number of bins are hard coded(5) Only thing that should change is the bin name when a bin is empty. If bin is empty bin name = + Add Inventory. Add Inventory routes to AddToBin
     render() {
         console.log()
@@ -44,12 +45,17 @@ class Shelf extends Component {
                     </div>
                 </div>
                 <div className="button-container">
+               
                     <Link to={`/shelf/${this.props.match.params.id}/bin/1`}> <button className="bin-button"> Bin 1</button></Link>
                     <Link to={`/shelf/${this.props.match.params.id}/bin/2`}> <button className="bin-button"> Bin 2</button></Link>
+                   
                     <Link to={`/shelf/${this.props.match.params.id}/bin/3`}> <button className="bin-button"> Bin 3</button></Link>
+                    { console.log(this.state.bins)}
+
+                    
                     <Link to={`/shelf/${this.props.match.params.id}/bin/4`}> <button className="bin-button"> Bin 4</button></Link>
-                    <Link to={`/shelf/${this.props.match.params.id}/bin/5`}> <button className="bin-button"> Bin 5</button></Link>
                     <Link to={`/shelf/${this.props.match.params.id}/add`}><button className="bin-add">+Add Inventory </button></Link>
+                   
                 </div>
             </div>
         )

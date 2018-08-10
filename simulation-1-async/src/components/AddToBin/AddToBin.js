@@ -18,7 +18,8 @@ class AddToBin extends Component {
 
     handleAddBin(){
         let {name, price} = this.state
-        axios.post(`/api/shelf${this.props.match.params.id}/bin/${this.props.match.params.number}`, {name, price})
+        console.log(this.props.match.params.number)
+        axios.post(`/api/bin/${this.props.match.params.id}${this.props.match.params.number}`, {name, price})
         .then((res) => {
             console.log(res.data)
         })
