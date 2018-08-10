@@ -13,20 +13,20 @@ module.exports = {
     },
 
     getBin: (req, res) => {
-        console.log(req.params.id)
-        const [shelf, bin] = req.params.id
-        req.app.get('db').get_bin([shelf, bin])
+        const id = req.params.id.split('')
+        let shelfLetter = id[0]
+        let binNumber = id[1]
+        req.app.get('db').get_bin([shelfLetter, binNumber])
             .then(([bin]) => res.send(bin))
             .catch((err) => res.status(500).send(err))
     },
 
     createBin: (req, res) => {      
-        const {name, price} = req.body
+        const {name, price, image} = req.body
         const id = req.params.id.split('')
         let shelfLetter = id[0]
         let binNumber = id[1]
-        console.log(name, price, shelfLetter, binNumber)
-        req.app.get('db').create_bin([ name, price, shelfLetter, Number(binNumber)])
+        req.app.get('db').create_bin([ name, price, image, shelfLetter, binNumber])
         .then(() => res.sendStatus(200))
 
         .catch((err) => { 
@@ -37,17 +37,19 @@ module.exports = {
 
     updateBin: (req, res) => {
         const {name, price} = req.body
-        const id = req.params.id
-        console.log(name, price)
-        req.app.get('db').update_bin([name, price, id])
+        const id = req.params.id.split('')
+        let shelfLetter = id[0]
+        let binNumber = id[1]
+        req.app.get('db').update_bin([name, price, shelfLetter, binNumber])
         .then(() => res.sendStatus(200)) 
         .catch((err) => res.status(500).send(err))
     }, 
 
     deleteBin: (req, res) => {
-         const id = req.params.id
-         console.log(req.params)
-        req.app.get('db').delete_bin([id])
+        const id = req.params.id.split('')
+        let shelfLetter = id[0]
+        let binNumber = id[1]
+        req.app.get('db').delete_bin([shelfLetter, binNumber])
         .then(() =>  res.sendStatus(200))
         .catch((err) => res.status(500).send(err))
     }

@@ -1,2 +1,3 @@
 DELETE FROM Shelfie
-WHERE id = $1
+WHERE shelf_letter = $1 
+AND bin_number = $2;

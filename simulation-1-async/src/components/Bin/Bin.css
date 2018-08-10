@@ -15,7 +15,6 @@
     padding-top: 1px;
     padding-bottom: 15px;
     font-family: 'Open Sans', sans-serif;
-    letter-spacing: 1px;
     font-size: 30px;
     font-weight: bold;
     text-align: left;
@@ -35,7 +34,6 @@
 
 .bin-number h2 {
     font-family: 'Open Sans', sans-serif;
-    letter-spacing: 1px;
     font-size: 45px;
     font-weight: 700;
     text-align: left;
@@ -67,6 +65,12 @@
     font-size: 30px;
     margin-top: 10px;
     margin-right: 50px;
+}
+
+.edit-container h2{
+    position: relative;
+    right: 215px;
+    margin-bottom: 5px;
 }
 
 .edit-btn {

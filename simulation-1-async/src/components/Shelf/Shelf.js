@@ -9,7 +9,8 @@ class Shelf extends Component {
         super()
 
         this.state = {
-            bins: []
+            bins: [],
+            binNumbers: []
         }
 
     }
@@ -20,7 +21,6 @@ class Shelf extends Component {
     handleGetBins() {
         axios.get(`/api/shelf/${this.props.match.params.id}`)
             .then((res) => {
-                console.log(res)
                 this.setState({
                     bins: res.data
                 })
@@ -29,11 +29,54 @@ class Shelf extends Component {
             })
     }
 
+    checkBins = () => {
 
+        let binList = [];
+        let currentBins = []
+        let missingBins = []
+        if (this.state.bins.length !== 5) {
+            // checks the state to see which bin_number is assigned to the bin
+            this.state.bins.forEach(bin => {
+                currentBins.push(bin.bin_number)
+            })
+
+            // loops over the 5 bins and checks the current bin index vs index of bins that are empty
+            for (let i = 1; i <= 5; i++) {
+                if (currentBins.indexOf(i) === -1) {
+                    missingBins.push(i);
+                }
+            }
+
+            // loops through each object in state and compares the bin number of the current index vs the bin number in the db
+            for (let j = 0; j < this.state.bins.length; j++) {
+                let bin = this.state.bins[j];
+                for (let i = 1; i <= 5; i++) {
+                    if (bin && bin.bin_number === i) {
+                        binList.push(<Link to={`/shelf/${this.props.match.params.id}/bin/${bin.bin_number}`}> <button className="bin-button">Bin {`${bin.bin_number}`}</button></Link>)
+                    }
+                }
+            }
+            for (let i = 0; i < missingBins.length; i++) {
+                binList.splice(missingBins[i] - 1, 0, <Link to={`/shelf/${this.props.match.params.id}/${missingBins[i]}`}> <button className="bin-add"> + Add Inventory</button></Link>)
+            }
+            console.log(binList);
+            return binList;
+        } else if (this.state.bins.length === 0) {
+            for (let i = 1; i <= 5; i++) {
+                binList.push(<Link to={`/shelf/${this.props.match.params.id}/${i}`}> <button className="bin-add"> + Add Inventory</button></Link>)
+            }
+            return binList
+        }
+        else {
+            for (let i = 0; i < this.state.bins.length; i++) {
+                binList.push(<Link to={`/shelf/${this.props.match.params.id}/bin/${this.state.bins[i].bin_number}`}> <button className="bin-button">Bin {`${this.state.bins[i].bin_number}`}</button></Link>)
+            }
+            return binList
+        }
+    }
 
     // Number of bins are hard coded(5) Only thing that should change is the bin name when a bin is empty. If bin is empty bin name = + Add Inventory. Add Inventory routes to AddToBin
     render() {
-        console.log()
         return (
             <div className="shelf">
                 <div className="shelf-header">
@@ -45,17 +88,14 @@ class Shelf extends Component {
                     </div>
                 </div>
                 <div className="button-container">
-               
-                    <Link to={`/shelf/${this.props.match.params.id}/bin/1`}> <button className="bin-button"> Bin 1</button></Link>
-                    <Link to={`/shelf/${this.props.match.params.id}/bin/2`}> <button className="bin-button"> Bin 2</button></Link>
-                   
-                    <Link to={`/shelf/${this.props.match.params.id}/bin/3`}> <button className="bin-button"> Bin 3</button></Link>
-                    { console.log(this.state.bins)}
-
-                    
-                    <Link to={`/shelf/${this.props.match.params.id}/bin/4`}> <button className="bin-button"> Bin 4</button></Link>
-                    <Link to={`/shelf/${this.props.match.params.id}/add`}><button className="bin-add">+Add Inventory </button></Link>
-                   
+                    {this.checkBins().map((bin, index) => {
+                        return (
+                            <div key={index}>
+                                {bin}
+                            </div>
+                        );
+                    })
+                  }
                 </div>
             </div>
         )

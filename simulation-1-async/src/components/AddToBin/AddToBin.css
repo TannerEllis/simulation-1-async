@@ -1,3 +1,37 @@
+.bin-header {
+    display: flex;
+    height: 60px;
+    width: 100%;
+    color: white;
+    justify-content: center;
+    margin-top: 5px; 
+}
+
+.add-bin-crumb {
+    height: 60px;
+    width: 21%;
+    background: #D34735;
+    color: white;
+    padding-top: 1px;
+    padding-bottom: 15px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.add-bin-crumb h2 {
+    margin: 0;
+    margin-top: 6px;
+}
+
+.a2b {
+    color: black;
+}
+
+
+
 .edit-container {
     display: flex;
     justify-content: center;

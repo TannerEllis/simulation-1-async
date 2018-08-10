@@ -14,7 +14,6 @@ class Bin extends Component {
             name: '',
             price: '',
             image: '',
-            id: 0
         }
 
         this.handleDelete = this.handleDelete.bind(this);
@@ -43,14 +42,13 @@ class Bin extends Component {
                 this.setState({
                     name: res.data.name,
                     price: res.data.price,
-                    image: res.data.image,
-                    id: res.data.id
+                    image: res.data.image
                 })
             }).catch((err) => { console.log(err) })
     }
 
     handleUpdateBin() {
-        axios.put(`/api/bin/${this.state.id}`, {name: this.state.name, price: this.state.price}).then( () => {
+        axios.put(`/api/bin/${this.props.match.params.id}${this.props.match.params.number}`, {name: this.state.name, price: this.state.price}).then( () => {
             this.setState({
                 edit: true,
                 name: this.state.name,
@@ -61,11 +59,12 @@ class Bin extends Component {
 
     handleDelete() {
         console.log(this.state.id)
-        axios.delete(`/api/bin/${this.state.id}`).then(() => {
+        axios.delete(`/api/bin/${this.props.match.params.id}${this.props.match.params.number}`).then(() => {
             this.setState({
                 name: '', 
                 price: ''
             })
+            this.props.history.goBack()
         }).catch((err) => {console.log(err)})
     }
 
@@ -93,7 +92,7 @@ class Bin extends Component {
                         <Link to="/"><img className="logo" src={logo} alt="logo" /></Link>
                     </div>
                     <div className="bin-crumb">
-                        <h2>Shelf {this.props.match.params.id}</h2>
+                        <h2 onClick={() => this.props.history.goBack()}>Shelf {this.props.match.params.id}</h2>
                     </div>
                     <div className="bin-number">
                         <h2 onClick={() => this.props.history.goBack()}>Bin {this.props.match.params.number}</h2>
