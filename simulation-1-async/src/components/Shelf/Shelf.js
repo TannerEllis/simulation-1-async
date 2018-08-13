@@ -9,9 +9,9 @@ class Shelf extends Component {
         super()
 
         this.state = {
-            bins: [],
-            binNumbers: []
+            bins: []
         }
+        this.checkBins = this.checkBins.bind(this);
 
     }
     componentDidMount() {
@@ -29,18 +29,19 @@ class Shelf extends Component {
             })
     }
 
-    checkBins = () => {
+    checkBins() {
 
         let binList = [];
         let currentBins = []
         let missingBins = []
+
+        // If the array doesnt have 5 elements, loop over each element and push the bin_number into the currentBins array
         if (this.state.bins.length !== 5) {
-            // checks the state to see which bin_number is assigned to the bin
             this.state.bins.forEach(bin => {
                 currentBins.push(bin.bin_number)
             })
 
-            // loops over the 5 bins and checks the current bin index vs index of bins that are empty
+            // checks the currentBins index (the === -1 is to check if the currentBin exists) if it doesn't exist it is pushed into missingBins 
             for (let i = 1; i <= 5; i++) {
                 if (currentBins.indexOf(i) === -1) {
                     missingBins.push(i);
@@ -56,18 +57,23 @@ class Shelf extends Component {
                     }
                 }
             }
+
+            // checks missingBins and displays Add Inventory button if the bin is empty
             for (let i = 0; i < missingBins.length; i++) {
                 binList.splice(missingBins[i] - 1, 0, <Link to={`/shelf/${this.props.match.params.id}/${missingBins[i]}`}> <button className="bin-add"> + Add Inventory</button></Link>)
             }
             console.log(binList);
             return binList;
+
+            //if all bins are empty it makes sure to display buttons
         } else if (this.state.bins.length === 0) {
             for (let i = 1; i <= 5; i++) {
                 binList.push(<Link to={`/shelf/${this.props.match.params.id}/${i}`}> <button className="bin-add"> + Add Inventory</button></Link>)
             }
             return binList
-        }
-        else {
+
+            // if bins are full display button with bin number
+        } else {
             for (let i = 0; i < this.state.bins.length; i++) {
                 binList.push(<Link to={`/shelf/${this.props.match.params.id}/bin/${this.state.bins[i].bin_number}`}> <button className="bin-button">Bin {`${this.state.bins[i].bin_number}`}</button></Link>)
             }
@@ -95,7 +101,7 @@ class Shelf extends Component {
                             </div>
                         );
                     })
-                  }
+                    }
                 </div>
             </div>
         )
